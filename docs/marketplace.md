@@ -13,6 +13,17 @@ Chromium Link uses the [Home Assistant Marketplace integration layout](https://c
 - [ ] Confirm that **Tests**, **HACS validation**, and **hassfest** pass on the intended release commit. Save the run links for the catalog submission.
 - [ ] Match the manifest version, changelog heading, and GitHub tag. Publish a full GitHub release with notes when the checks above pass.
 
+## Package the release
+
+From the validated release commit, build the ZIP from the integration directory so `manifest.json` is at the archive root.
+
+```bash
+git archive --format=zip --output=/tmp/chromium_link.zip HEAD:custom_components/chromium_link
+unzip -t /tmp/chromium_link.zip
+```
+
+Attach `chromium_link.zip` to the GitHub release before publishing. Marketplace installs this asset, and HACS Downloads reads its GitHub download counter. Keep the filename in sync with `hacs.json` and the tracker configuration.
+
 ## Submit to the catalog
 
 The repository owner or a major contributor can submit. Follow the [Marketplace catalog guide](https://contributors.home-assistant.io/marketplace/guides/catalog/) and open a PR to [hacs/default](https://github.com/hacs/default). Add `thomasgregg/chromium-link` alphabetically to the `integration` list and include the release and passing HACS and hassfest runs. The Marketplace shows the project in its default catalog after approval and indexing.

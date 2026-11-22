@@ -56,8 +56,8 @@ Follow the setup prompt, or open **Settings → Devices & services → Add integ
 <details>
 <summary>Manual installation</summary>
 
-1. Download a tagged [release](https://github.com/thomasgregg/chromium-link/releases), or choose **Code → Download ZIP** to download the current source.
-2. Copy the `custom_components/chromium_link` folder into the `custom_components` folder beside your Home Assistant `configuration.yaml`.
+1. Download `chromium_link.zip` from the [latest release](https://github.com/thomasgregg/chromium-link/releases/latest).
+2. Extract it into `custom_components/chromium_link` beside your Home Assistant `configuration.yaml`. The extracted `manifest.json` belongs directly inside `custom_components/chromium_link`.
 3. Restart Home Assistant. Open **Settings → Devices & services → Add integration → Chromium Link**.
 
 </details>
