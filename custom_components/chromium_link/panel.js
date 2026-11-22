@@ -61,8 +61,9 @@ class ChromiumLinkPanel extends HTMLElement {
       const result = await this.#hass.callWS({ type: "chromium_link/open", url });
       if (!this.isConnected || window.location.href !== launchedFrom) return;
 
-      // Replace the temporary launcher page so Back returns to the dashboard.
-      window.location.replace(result.panel_path);
+      // Replace the launcher route and let Home Assistant switch panels in place.
+      window.history.replaceState(window.history.state, "", result.panel_path);
+      window.dispatchEvent(new CustomEvent("location-changed", { detail: { replace: true } }));
     } catch (error) {
       this.#status.textContent = error?.message || "Could not open the device in Chromium.";
     }

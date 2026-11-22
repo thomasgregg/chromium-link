@@ -13,14 +13,23 @@ const source = readFileSync(
 function mount(suffix, previous, callWS) {
   let Panel;
   const navigations = [];
+  const events = [];
   const location = new URL(`/chromium-launch${suffix}`, "http://homeassistant.local");
+  const initialState = previous ? { from: previous, dashboardState: true } : null;
   const window = {
-    history: { state: previous ? { from: previous } : null },
+    history: {
+      state: initialState,
+      replaceState(state, _unused, path) {
+        assert.equal(state, initialState);
+        navigations.push(path);
+        window.location.href = new URL(path, location).href;
+      },
+    },
     location: {
       search: location.search,
       href: location.href,
-      replace(path) { navigations.push(path); },
     },
+    dispatchEvent(event) { events.push({ event, href: window.location.href }); },
   };
   class Element {
     style = {};
@@ -30,6 +39,7 @@ function mount(suffix, previous, callWS) {
   vm.runInNewContext(source, {
     window,
     HTMLElement: Element,
+    CustomEvent,
     URLSearchParams,
     customElements: { define(_name, implementation) { Panel = implementation; } },
     document: { createElement: () => ({ setAttribute() {} }) },
@@ -38,7 +48,7 @@ function mount(suffix, previous, callWS) {
   panel.hass = { callWS };
   panel.isConnected = true;
   panel.connectedCallback();
-  return { panel, navigations };
+  return { panel, navigations, events };
 }
 
 test("opens the full destination and switches panels exactly once", async () => {
@@ -54,11 +64,15 @@ test("opens the full destination and switches panels exactly once", async () => 
       calls.push({ ...command });
       return { panel_path: "/49e24ccc_chromium" };
     } };
-    const { panel, navigations } = mount(`?url=${address}`, "/dashboard", hass.callWS);
+    const { panel, navigations, events } = mount(`?url=${address}`, "/dashboard", hass.callWS);
     panel.hass = hass;
     await settle();
     assert.deepEqual(calls, [{ type: "chromium_link/open", url: expected }]);
     assert.deepEqual(navigations, ["/49e24ccc_chromium"]);
+    assert.equal(events.length, 1);
+    assert.equal(events[0].event.type, "location-changed");
+    assert.equal(events[0].event.detail.replace, true);
+    assert.equal(events[0].href, "http://homeassistant.local/49e24ccc_chromium");
   }
 });
 
