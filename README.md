@@ -4,13 +4,12 @@
   <p><strong>Open local device web pages from your Home Assistant dashboard while you’re away.</strong></p>
   <p>
     <a href="#what-you-need"><img src="https://img.shields.io/badge/Home%20Assistant%20OS-2026.11%2B-18BCF2?logo=homeassistant&amp;logoColor=white" alt="Home Assistant OS 2026.11 or later"></a>
-    <a href="#installation"><img src="https://img.shields.io/badge/Status-Early%20preview-D28C18" alt="Project status: early preview"></a>
     <a href="https://github.com/thomasgregg/chromium-link/actions/workflows/validate.yml"><img src="https://github.com/thomasgregg/chromium-link/actions/workflows/validate.yml/badge.svg?branch=main" alt="GitHub validation status"></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-2EA44F" alt="MIT license"></a>
   </p>
 </div>
 
-Home Assistant Cloud gets you to your dashboard while you’re away. A regular dashboard link to a local address like `http://wled.local/` still asks your phone or laptop to connect directly to the device. The page won’t load if your phone or laptop can’t reach your local network.
+You can reach your Home Assistant dashboard remotely. When you tap a regular dashboard link to `http://wled.local/`, your phone or laptop tries to connect directly to the device. The page won’t load if your phone or laptop can’t reach your local network.
 
 Chromium Link opens the device page in [Chromium](https://github.com/Mincka/ha-addons/tree/main/chromium) running on your Home Assistant host and shows it through the remote connection you already use. Each shortcut is a standard dashboard button with the device’s usual URL. You can skip the VPN client and keep device web interfaces on your local network.
 
@@ -22,7 +21,6 @@ Chromium Link opens the device page in [Chromium](https://github.com/Mincka/ha-a
   - [Configure the Chromium add-on](#1-configure-the-chromium-add-on)
   - [Install Chromium Link](#2-install-chromium-link)
 - [Add your first button](#add-your-first-button)
-- [Use it away from home](#use-it-away-from-home)
 - [How it works](#how-it-works)
 - [Troubleshooting](#troubleshooting)
 - [Security and support](#security-and-support)
@@ -40,13 +38,11 @@ Chromium Link opens the device page in [Chromium](https://github.com/Mincka/ha-a
 
 - Home Assistant OS with **Home Assistant 2026.11 or later** and an administrator account.
 - **Mincka Chromium 1.7.0 or later**, installed and running on your Home Assistant host. To add it, open **Settings → Apps → Install app → ⋮ → Repositories** and add `https://github.com/mincka/ha-addons`, then install **Chromium**. [Mincka Chromium add-on](https://github.com/Mincka/ha-addons/tree/main/chromium)
-- For use away from home, remote access to your Home Assistant dashboard, such as Home Assistant Cloud by Nabu Casa. [Home Assistant remote access guide](https://www.home-assistant.io/docs/configuration/remote/)
+- For use away from home, remote access to your Home Assistant dashboard, such as **Home Assistant Link** from Nabu Casa. The setting is called **Home Assistant Cloud** through Home Assistant 2026.11. [Home Assistant remote access guide](https://www.home-assistant.io/docs/configuration/remote/)
 
 <a name="install"></a>
 
 ## Installation
-
-> **Early preview.** The launcher has been tested in Chromium. The full Home Assistant OS and Nabu Casa test is tracked in the [release checklist](docs/marketplace.md#before-publishing).
 
 ### 1. Configure the Chromium add-on
 
@@ -69,7 +65,7 @@ Follow the setup prompt, or open **Settings → Devices & services → Add integ
 <details>
 <summary>Manual installation</summary>
 
-1. Download a tagged [release](https://github.com/thomasgregg/chromium-link/releases), or use **Code → Download ZIP** to try the current preview.
+1. Download a tagged [release](https://github.com/thomasgregg/chromium-link/releases), or choose **Code → Download ZIP** to download the current source.
 2. Copy the `custom_components/chromium_link` folder into the `custom_components` folder beside your Home Assistant `configuration.yaml`.
 3. Restart Home Assistant. Open **Settings → Devices & services → Add integration → Chromium Link**.
 
@@ -94,15 +90,6 @@ For more devices, duplicate the button and change its name and address. Paste th
 /chromium-launch?url=http://device.local/settings?tab=wifi&mode=advanced#status
 ```
 
-## Use it away from home
-
-Open your Home Assistant dashboard and tap your device’s **via Home Assistant** button. The Chromium add-on opens the page in a new tab, then Home Assistant shows the Chromium panel. **Back** returns you to your dashboard.
-
-| Button | What opens | When to use it |
-| --- | --- | --- |
-| **Open via Home Assistant** | The Chromium add-on on your Home Assistant host | At home or away through your Home Assistant connection |
-| **Open directly** | The browser you’re using right now | On your local network or a VPN that can reach the device |
-
 ## How it works
 
 ```mermaid
@@ -116,14 +103,13 @@ Chromium Link asks the add-on on your Home Assistant host to open the device add
 
 ## Troubleshooting
 
-| What you see | What to check |
-| --- | --- |
-| **Chromium Link isn’t in Add integration** | Check that the downloaded folder is `custom_components/chromium_link`. Restart HA if you installed it manually. |
-| **Home Assistant could not find the Mincka Chromium app** | Confirm that Chromium was installed from `https://github.com/mincka/ha-addons` using that repository URL. Other Chromium apps use different Supervisor IDs. |
-| **Start Chromium** | Start the app and wait for its existing sidebar panel to load. |
-| **Chromium did not confirm** | Check that `CHROMIUM_REMOTE_DEBUGGING` is `"1"`, Chromium was restarted, and its internal DevTools connection is reachable. Keep the host port mapping blank. |
-| **The Chromium tab opens, but the device page fails** | Try the same address inside Chromium. Check the hostname or IP, port, and whether the device actually serves a web page. |
-| **Open Chromium Link from a Home Assistant dashboard button** | Use your dashboard button to launch the page. A pasted launcher link in your browser’s address bar displays this message. |
+- **“Enable CHROMIUM_REMOTE_DEBUGGING in Chromium and restart it.”** Open **Settings → Apps → Chromium → Configuration**, set `CHROMIUM_REMOTE_DEBUGGING` to `1`, and save. Leave the `9222/tcp` host port blank under **Network**. Go to **Info**, restart Chromium, then tap the dashboard button again.
+- **“Unable to load custom panel from …/api/chromium_link/panel.js”** Refresh the Home Assistant page in your browser, then try the dashboard button again. If the error persists, check that Chromium Link is listed under **Settings → Devices & services** and follow any pending restart prompt.
+- **“Home Assistant could not find the Mincka Chromium app.”** Install **Chromium** from `https://github.com/mincka/ha-addons` under **Settings → Apps**. [Chromium app requirements](#what-you-need)
+- **“Start Chromium in Settings → Apps, then try again.”** Select **Start** on the Chromium app’s **Info** tab. Open Chromium from the sidebar to confirm it’s ready, then retry the button.
+- **“Chromium did not confirm that it opened the tab.”** Check that debugging is enabled. If you changed `CHROMIUM_REMOTE_DEBUGGING_PORT`, try its default of `9222`. Keep the host port blank under **Network**. Save any changes and restart Chromium.
+- **“Open Chromium Link from a Home Assistant dashboard button.”** Tap the dashboard card with the **Navigate** action. If you’re typing into Chromium’s address bar, use the device address itself, such as `http://esp-sensor.local/`. [Button card example](#add-your-first-button)
+- **Chromium opens and shows “This site can’t be reached.”** Try the device’s local IP address in Chromium’s address bar. For example, if `http://esp-sensor.local/` fails to resolve and your sensor’s IP is `192.168.1.50`, try `http://192.168.1.50/`. Put the address that works in your dashboard button.
 
 ## Security and support
 
