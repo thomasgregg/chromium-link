@@ -22,7 +22,7 @@ from .protocol import new_tab_path
 
 DOMAIN = "chromium_link"
 CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
-PANEL_PATH = "chromium-launch"
+PANEL_PATH = "chromium-link"
 MODULE_URL = "/api/chromium_link/panel.js"
 # Supervisor derives this ID from the published Mincka repository and app slug.
 CHROMIUM_APP = "49e24ccc_chromium"

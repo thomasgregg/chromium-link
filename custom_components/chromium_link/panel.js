@@ -51,7 +51,7 @@ class ChromiumLinkPanel extends HTMLElement {
         typeof previous !== "string" ||
         !previous.startsWith("/") ||
         previous.startsWith("//") ||
-        previous.startsWith("/chromium-launch")
+        /^\/chromium-link(?:[/?#]|$)/.test(previous)
       ) {
         throw new Error("Open Chromium Link from a Home Assistant dashboard button.");
       }

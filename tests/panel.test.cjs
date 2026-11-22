@@ -14,7 +14,7 @@ function mount(suffix, previous, callWS) {
   let Panel;
   const navigations = [];
   const events = [];
-  const location = new URL(`/chromium-launch${suffix}`, "http://homeassistant.local");
+  const location = new URL(`/chromium-link${suffix}`, "http://homeassistant.local");
   const initialState = previous ? { from: previous, dashboardState: true } : null;
   const window = {
     history: {
@@ -64,7 +64,7 @@ test("opens the full destination and switches panels exactly once", async () => 
       calls.push({ ...command });
       return { panel_path: "/49e24ccc_chromium" };
     } };
-    const { panel, navigations, events } = mount(`?url=${address}`, "/dashboard", hass.callWS);
+    const { panel, navigations, events } = mount(`?url=${address}`, "/chromium-link-demo", hass.callWS);
     panel.hass = hass;
     await settle();
     assert.deepEqual(calls, [{ type: "chromium_link/open", url: expected }]);
@@ -76,9 +76,10 @@ test("opens the full destination and switches panels exactly once", async () => 
   }
 });
 
-test("a direct visit or duplicate encoded destination leaves Chromium alone", async () => {
+test("direct visits, launcher navigation, and duplicate encoded destinations do not open tabs", async () => {
   for (const [suffix, previous] of [
     ["?url=http://device.local/", null],
+    ["?url=http://device.local/", "/chromium-link?url=http://other.local/"],
     ["?url=http%3A%2F%2Fdevice.local%2F&url=http%3A%2F%2Fother.local%2F", "/dashboard"],
   ]) {
     let calls = 0;

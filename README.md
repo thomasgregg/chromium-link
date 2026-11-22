@@ -72,14 +72,16 @@ name: Open WLED via HA
 icon: mdi:open-in-new
 tap_action:
   action: navigate
-  navigation_path: "/chromium-launch?url=http://wled.local/"
+  navigation_path: "/chromium-link?url=http://wled.local/"
 ```
 
-For more devices, duplicate the button and change its name and address. Paste the full device address after `/chromium-launch?url=` exactly as you copied it from the browser, including any page options or `#` section.
+For more devices, duplicate the button and change its name and address. Paste the full device address after `/chromium-link?url=` exactly as you copied it from the browser, including any page options or `#` section.
 
 ```text
-/chromium-launch?url=http://wled.local/settings?tab=wifi&mode=advanced#status
+/chromium-link?url=http://wled.local/settings?tab=wifi&mode=advanced#status
 ```
+
+If you’re updating from 0.1.0, change `/chromium-launch?url=` to `/chromium-link?url=` in your existing buttons.
 
 ## How it works
 
@@ -102,7 +104,7 @@ Chromium Link asks the add-on on your Home Assistant host to open the device add
 | **The Chromium app is installed and its browser panel is unavailable.** The launcher asks you to start Chromium. | Open **Settings → Apps → Chromium → Info**. Start Chromium if it’s stopped, then select **Open Web UI** to check that its browser loads before retrying the dashboard button. |
 | **Chromium Link can’t confirm that Chromium opened the tab.** | Open Chromium from the sidebar first. If the browser loads, check its debugging settings. Restart the Chromium app after changing them. If the launcher reports an invalid internal port, set `CHROMIUM_REMOTE_DEBUGGING_PORT` to `9222`, save, and restart Chromium. |
 | **Opening the launcher URL directly leaves you on the Chromium Link page.** | Use a card with the **Navigate** action and tap it from your dashboard. When testing the device in Chromium’s address bar, enter `http://wled.local/`. [Button card example](#add-your-first-button) |
-| **The launcher reports a missing or invalid device address.** | Check that the card’s navigation path includes one full `http://` or `https://` address after `?url=`. For WLED, use `/chromium-launch?url=http://wled.local/`. [Button card example](#add-your-first-button) |
+| **The launcher reports a missing or invalid device address.** | Check that the card’s navigation path includes one full `http://` or `https://` address after `?url=`. For WLED, use `/chromium-link?url=http://wled.local/`. [Button card example](#add-your-first-button) |
 | **Chromium opens a tab and shows “This site can’t be reached.”** | Try the same device address in Chromium’s address bar. If `wled.local` fails to resolve, try the controller’s actual local IP address, such as `http://192.168.1.50/`. Use the working address in the dashboard button. If both fail, check that WLED is online and reachable from your Home Assistant host. |
 
 <a name="remote-access-options"></a>
