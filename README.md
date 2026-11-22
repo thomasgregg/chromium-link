@@ -15,7 +15,6 @@ Chromium Link opens the device page in [Chromium](https://github.com/Mincka/ha-a
 
 ## Contents
 
-- [Chromium Link vs. other options](#chromium-link-vs-other-options)
 - [What you need](#what-you-need)
 - [Installation](#installation)
   - [Configure the Chromium add-on](#1-configure-the-chromium-add-on)
@@ -23,20 +22,8 @@ Chromium Link opens the device page in [Chromium](https://github.com/Mincka/ha-a
 - [Add your first button](#add-your-first-button)
 - [How it works](#how-it-works)
 - [Troubleshooting](#troubleshooting)
+- [Chromium Link vs. other options](#chromium-link-vs-other-options)
 - [Security and support](#security-and-support)
-
-<a name="remote-access-options"></a>
-
-## Chromium Link vs. other options
-
-The right option depends on what you need to reach while you’re away. Use the table to find a setup that fits, from opening a device page with one tap to accessing other services on your local network.
-
-| Approach | When it fits | What it takes |
-| --- | --- | --- |
-| **Chromium Link** | Open a device web page in one tap from your dashboard. | Set up the Chromium add-on and add a button for each device you want to open. |
-| **VPN with access to your local network** | Open devices directly in your own browser, or use other services such as SSH and file sharing. | Set up a VPN gateway or subnet router and connect each phone or computer that needs access. [Tailscale subnet routing example](https://tailscale.com/docs/use-cases/personal-or-at-home-use/access-devices-without-tailscale) |
-| **Reverse proxy** | Give a service its own remote web address. | Configure the proxy for each service you want to publish and manage who can reach it. [Caddy reverse proxy example](https://caddyserver.com/docs/quick-starts/reverse-proxy) |
-| **Chromium add-on on its own** | Open the occasional page from Chromium’s address bar or bookmarks. | Open Chromium in Home Assistant and choose or enter the device address. |
 
 ## What you need
 
@@ -117,6 +104,19 @@ Chromium Link asks the add-on on your Home Assistant host to open the device add
 | **Opening the launcher URL directly leaves you on the Chromium Link page.** | Use a card with the **Navigate** action and tap it from your dashboard. When testing the device in Chromium’s address bar, enter `http://wled.local/`. [Button card example](#add-your-first-button) |
 | **The launcher reports a missing or invalid device address.** | Check that the card’s navigation path includes one full `http://` or `https://` address after `?url=`. For WLED, use `/chromium-launch?url=http://wled.local/`. [Button card example](#add-your-first-button) |
 | **Chromium opens a tab and shows “This site can’t be reached.”** | Try the same device address in Chromium’s address bar. If `wled.local` fails to resolve, try the controller’s actual local IP address, such as `http://192.168.1.50/`. Use the working address in the dashboard button. If both fail, check that WLED is online and reachable from your Home Assistant host. |
+
+<a name="remote-access-options"></a>
+
+## Chromium Link vs. other options
+
+The right option depends on what you need to reach while you’re away. Use the table to find a setup that fits, from opening a device page with one tap to accessing other services on your local network.
+
+| Approach | When it fits | What it takes |
+| --- | --- | --- |
+| **Chromium Link** | Open a device web page in one tap from your dashboard. | Set up the Chromium add-on and add a button for each device you want to open. |
+| **VPN with access to your local network** | Open devices directly in your own browser, or use other services such as SSH and file sharing. | Set up a VPN gateway or subnet router and connect each phone or computer that needs access. [Tailscale subnet routing example](https://tailscale.com/docs/use-cases/personal-or-at-home-use/access-devices-without-tailscale) |
+| **Reverse proxy** | Give a service its own remote web address. | Configure the proxy for each service you want to publish and manage who can reach it. [Caddy reverse proxy example](https://caddyserver.com/docs/quick-starts/reverse-proxy) |
+| **Chromium add-on on its own** | Open the occasional page from Chromium’s address bar or bookmarks. | Open Chromium in Home Assistant and choose or enter the device address. |
 
 ## Security and support
 
