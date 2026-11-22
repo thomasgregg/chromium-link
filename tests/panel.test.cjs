@@ -10,14 +10,15 @@ const source = readFileSync(
   "utf8",
 );
 
-function mount(search, previous, callWS) {
+function mount(suffix, previous, callWS) {
   let Panel;
   const navigations = [];
+  const location = new URL(`/chromium-launch${suffix}`, "http://homeassistant.local");
   const window = {
     history: { state: previous ? { from: previous } : null },
     location: {
-      search,
-      href: `http://homeassistant.local/chromium-launch${search}`,
+      search: location.search,
+      href: location.href,
       replace(path) { navigations.push(path); },
     },
   };
@@ -41,28 +42,33 @@ function mount(search, previous, callWS) {
 }
 
 test("opens the full destination and switches panels exactly once", async () => {
-  const url = "http://device.local/?setting=a%2Bb&mode=2#status";
-  let calls = 0;
-  const hass = { async callWS(command) {
-    calls += 1;
-    assert.equal(command.type, "chromium_link/open");
-    assert.equal(command.url, url);
-    return { panel_path: "/49e24ccc_chromium" };
-  } };
-  const { panel, navigations } = mount(`?url=${encodeURIComponent(url)}`, "/dashboard", hass.callWS);
-  panel.hass = hass;
-  await settle();
-  assert.equal(calls, 1);
-  assert.deepEqual(navigations, ["/49e24ccc_chromium"]);
+  const url = "http://device.local/settings?setting=a%2Bb+c&mode=2&url=local#status";
+  const fragmentUrl = "https://device.local/#/network?tab=wifi";
+  for (const [address, expected] of [
+    [url, url],
+    [fragmentUrl, fragmentUrl],
+    [encodeURIComponent(url), url],
+  ]) {
+    const calls = [];
+    const hass = { async callWS(command) {
+      calls.push({ ...command });
+      return { panel_path: "/49e24ccc_chromium" };
+    } };
+    const { panel, navigations } = mount(`?url=${address}`, "/dashboard", hass.callWS);
+    panel.hass = hass;
+    await settle();
+    assert.deepEqual(calls, [{ type: "chromium_link/open", url: expected }]);
+    assert.deepEqual(navigations, ["/49e24ccc_chromium"]);
+  }
 });
 
-test("a pasted link or duplicate destination leaves Chromium alone", async () => {
-  for (const [search, previous] of [
+test("a direct visit or duplicate encoded destination leaves Chromium alone", async () => {
+  for (const [suffix, previous] of [
     ["?url=http://device.local/", null],
-    ["?url=http://device.local/&url=http://other.local/", "/dashboard"],
+    ["?url=http%3A%2F%2Fdevice.local%2F&url=http%3A%2F%2Fother.local%2F", "/dashboard"],
   ]) {
     let calls = 0;
-    const { panel, navigations } = mount(search, previous, async () => { calls += 1; });
+    const { panel, navigations } = mount(suffix, previous, async () => { calls += 1; });
     await settle();
     assert.equal(calls, 0);
     assert.deepEqual(navigations, []);

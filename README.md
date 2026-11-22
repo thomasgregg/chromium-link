@@ -65,10 +65,10 @@ tap_action:
 
 </details>
 
-Duplicate the button for any other device and change its name and URL. If a device address contains its own query string, `&`, `+`, `%`, or a `#` fragment, percent-encode the **device address** before putting it after `?url=`. For example, `http://device.local/settings?tab=wifi#status` becomes:
+For more devices, duplicate the button and change its name and address. Paste the full device address after `/chromium-launch?url=` exactly as you copied it from the browser, including any page options or `#` section.
 
 ```text
-/chromium-launch?url=http%3A%2F%2Fdevice.local%2Fsettings%3Ftab%3Dwifi%23status
+/chromium-launch?url=http://device.local/settings?tab=wifi&mode=advanced#status
 ```
 
 ## Use it away from home

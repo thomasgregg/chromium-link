@@ -1,3 +1,19 @@
+function readDestination({ href, search }) {
+  const prefix = "?url=";
+  if (search.startsWith(prefix)) {
+    // The pasted address can have its own query and fragment. Read both from href.
+    const address = href.slice(href.indexOf("?") + prefix.length);
+    if (/^https?:\/\//i.test(address)) return address;
+  }
+
+  // Keep accepting dashboard links that encoded the entire address.
+  const destinations = new URLSearchParams(search).getAll("url");
+  if (destinations.length !== 1 || !destinations[0]) {
+    throw new Error("The dashboard button needs one device URL in its navigation path.");
+  }
+  return destinations[0];
+}
+
 class ChromiumLinkPanel extends HTMLElement {
   #hass;
   #started = false;
@@ -40,13 +56,9 @@ class ChromiumLinkPanel extends HTMLElement {
         throw new Error("Open Chromium Link from a Home Assistant dashboard button.");
       }
 
-      const destinations = new URLSearchParams(window.location.search).getAll("url");
-      if (destinations.length !== 1 || !destinations[0]) {
-        throw new Error("The dashboard button needs one device URL in its navigation path.");
-      }
-
       const launchedFrom = window.location.href;
-      const result = await this.#hass.callWS({ type: "chromium_link/open", url: destinations[0] });
+      const url = readDestination(window.location);
+      const result = await this.#hass.callWS({ type: "chromium_link/open", url });
       if (!this.isConnected || window.location.href !== launchedFrom) return;
 
       // Replace the temporary launcher page so Back returns to the dashboard.

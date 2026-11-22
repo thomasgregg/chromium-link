@@ -7,7 +7,7 @@ Chromium Link uses the [Home Assistant Marketplace integration layout](https://c
 - [ ] Install the exact release candidate through Marketplace on a Home Assistant OS instance running the minimum supported version.
 - [ ] Add Chromium Link through **Devices & services** and confirm the setup has no fields. Restart HA and confirm the integration loads again.
 - [ ] Verify the Mincka Chromium app is running, its host DevTools port mapping is blank, and Chromium Link can reach DevTools internally.
-- [ ] Use ordinary dashboard buttons to open two different LAN pages. Include a destination with an encoded query string and fragment. Confirm that the requested tab is visible and **Back** returns to the dashboard.
+- [ ] Use ordinary dashboard buttons to open two different LAN pages. Paste a full device URL with query parameters and a fragment after `?url=`. Confirm that the requested tab is visible and **Back** returns to the dashboard. Also try a link with the full device URL percent-encoded for compatibility.
 - [ ] Repeat through Nabu Casa with the client device off the home LAN. Check that an ordinary non-admin account cannot launch a tab.
 - [ ] Confirm the integration shows a useful error when Chromium is stopped or DevTools is disabled.
 - [ ] Confirm that **Tests**, **HACS validation**, and **hassfest** pass on the intended release commit. Save the run links for the catalog submission.

@@ -11,4 +11,4 @@ python3 -m unittest discover -s tests -v
 node --test tests/panel.test.cjs
 ```
 
-For changes to installation or routing behavior, also run the [Home Assistant OS smoke test](docs/marketplace.md#before-publishing). Keep the standard Button card syntax working for simple addresses and percent-encoded URLs. Use example hostnames in public test output and screenshots.
+For changes to installation or routing behavior, also run the [Home Assistant OS smoke test](docs/marketplace.md#before-publishing). Keep the standard Button card syntax working for pasted addresses with query strings and fragments, as well as existing links with fully encoded addresses. Use example hostnames in public test output and screenshots.
