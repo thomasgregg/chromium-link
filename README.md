@@ -108,12 +108,11 @@ Open your Home Assistant dashboard and tap your device’s **via Home Assistant*
 ```mermaid
 flowchart LR
     A[Dashboard button] --> B[Chromium Link]
-    B --> C[Chromium add-on on your Home Assistant host]
-    C --> D[Device web page]
-    C --> E[Existing HA Chromium panel]
+    B --> C[Chromium add-on opens a tab for the device page]
+    C --> D[Home Assistant shows the Chromium panel]
 ```
 
-The integration sends a tab-opening command to the Chromium add-on over Home Assistant’s internal network. The add-on connects to the device from the Home Assistant host, and Home Assistant’s existing Ingress connection displays the browser. Chromium uses its usual shared browser session for its tabs, history, and sign-ins.
+Chromium Link asks the add-on on your Home Assistant host to open the device address in a new tab. Once the add-on confirms the tab is open, Chromium Link switches Home Assistant to the Chromium panel so you can use that page. Home Assistant displays the browser through its existing Ingress connection. Chromium uses its usual shared browser session for its tabs, history, and sign-ins.
 
 ## Troubleshooting
 
