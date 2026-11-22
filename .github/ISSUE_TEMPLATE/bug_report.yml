@@ -1,0 +1,17 @@
+name: Bug report
+description: Report a problem with setup, a dashboard button, or the Chromium handoff.
+body:
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: Include Chromium Link, Home Assistant, and the Mincka Chromium app versions.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: What happened?
+      description: Describe how to reproduce the problem and paste the error if one appeared. Use example addresses in any dashboard YAML and redact credentials and tokens.
+    validations:
+      required: true

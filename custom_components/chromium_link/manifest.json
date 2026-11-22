@@ -1,0 +1,14 @@
+{
+  "domain": "chromium_link",
+  "name": "Chromium Link",
+  "categories": ["computers_network"],
+  "codeowners": ["@thomasgregg"],
+  "config_flow": true,
+  "dependencies": ["frontend", "hassio", "panel_custom"],
+  "documentation": "https://github.com/thomasgregg/chromium-link",
+  "integration_type": "service",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/thomasgregg/chromium-link/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}

@@ -1,0 +1,7 @@
+{
+  "config": {
+    "abort": {
+      "already_configured": "Chromium Link is already set up."
+    }
+  }
+}
