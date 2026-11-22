@@ -15,7 +15,7 @@ Chromium Link opens the device page in [Chromium](https://github.com/Mincka/ha-a
 
 ## Contents
 
-- [Why Chromium Link](#why-chromium-link)
+- [When to use each option](#when-to-use-each-option)
 - [What you need](#what-you-need)
 - [Installation](#installation)
   - [Configure the Chromium add-on](#1-configure-the-chromium-add-on)
@@ -25,7 +25,7 @@ Chromium Link opens the device page in [Chromium](https://github.com/Mincka/ha-a
 - [Troubleshooting](#troubleshooting)
 - [Security and support](#security-and-support)
 
-## Why Chromium Link
+## When to use each option
 
 | Approach | When it fits | What it takes |
 | --- | --- | --- |
