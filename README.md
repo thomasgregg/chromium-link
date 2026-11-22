@@ -27,6 +27,8 @@ Chromium Link opens the device page in [Chromium](https://github.com/Mincka/ha-a
 
 ## Remote access options
 
+The right option depends on what you need to reach while you’re away. Use the table to find a setup that fits, from opening a device page with one tap to accessing other services on your local network.
+
 | Approach | When it fits | What it takes |
 | --- | --- | --- |
 | **Chromium Link** | Open a device web page in one tap from your dashboard. | Set up the Chromium add-on and add a button for each device you want to open. |
