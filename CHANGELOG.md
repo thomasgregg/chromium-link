@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.1
+
+- Open Chromium immediately when it is ready. Show a Home Assistant spinner only if opening takes more than 300 ms.
+- Show an error with the cause and a **Back to dashboard** action when Chromium Link cannot open the tab.
+
 ## 0.2.0
 
 - Changed the dashboard navigation path to `/chromium-link?url=`. Update any buttons that use `/chromium-launch?url=` after installing this release.
