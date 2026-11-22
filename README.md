@@ -15,7 +15,7 @@ Chromium Link opens the device page in [Chromium](https://github.com/Mincka/ha-a
 
 ## Contents
 
-- [Remote access options](#remote-access-options)
+- [Chromium Link vs. other options](#chromium-link-vs-other-options)
 - [What you need](#what-you-need)
 - [Installation](#installation)
   - [Configure the Chromium add-on](#1-configure-the-chromium-add-on)
@@ -25,7 +25,9 @@ Chromium Link opens the device page in [Chromium](https://github.com/Mincka/ha-a
 - [Troubleshooting](#troubleshooting)
 - [Security and support](#security-and-support)
 
-## Remote access options
+<a name="remote-access-options"></a>
+
+## Chromium Link vs. other options
 
 The right option depends on what you need to reach while you’re away. Use the table to find a setup that fits, from opening a device page with one tap to accessing other services on your local network.
 
