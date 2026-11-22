@@ -12,9 +12,7 @@
 
 Home Assistant Cloud gets you to your dashboard while you’re away. A regular dashboard link to a local address like `http://wled.local/` still asks your phone or laptop to connect directly to the device. The page won’t load if your phone or laptop can’t reach your local network.
 
-Chromium Link opens the device page in Chromium running on your Home Assistant host and shows it through the remote connection you already use. Each shortcut is a standard dashboard button with the device’s usual URL. You can skip the VPN client and keep device web interfaces on your local network.
-
-**[View the required Mincka Chromium add-on](https://github.com/Mincka/ha-addons/tree/main/chromium)**
+Chromium Link opens the device page in [Chromium](https://github.com/Mincka/ha-addons/tree/main/chromium) running on your Home Assistant host and shows it through the remote connection you already use. Each shortcut is a standard dashboard button with the device’s usual URL. You can skip the VPN client and keep device web interfaces on your local network.
 
 ## Contents
 
