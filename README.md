@@ -103,15 +103,16 @@ Chromium Link asks the add-on on your Home Assistant host to open the device add
 
 ## Troubleshooting
 
-| Error message or problem | What to do |
+| Problem | What to do |
 | --- | --- |
-| **“Enable CHROMIUM_REMOTE_DEBUGGING in Chromium and restart it.”** | Set `CHROMIUM_REMOTE_DEBUGGING` to `1` in **Settings → Apps → Chromium → Configuration**. Leave the `9222/tcp` host port blank under **Network**. Save, restart Chromium from **Info**, then retry the button. |
-| **“Unable to load custom panel from …/api/chromium_link/panel.js”** | Refresh Home Assistant in your browser and retry. If the error persists, check that Chromium Link is listed under **Settings → Devices & services** and follow any restart prompt. |
-| **“Home Assistant could not find the Mincka Chromium app.”** | Install **Chromium** from `https://github.com/mincka/ha-addons` under **Settings → Apps**. [Chromium app requirements](#what-you-need) |
-| **“Start Chromium in Settings → Apps, then try again.”** | Select **Start** on the Chromium app’s **Info** tab. Check that Chromium opens from the sidebar, then retry the button. |
-| **“Chromium did not confirm that it opened the tab. Check its internal DevTools connection.”** | Check that debugging is enabled. If you changed `CHROMIUM_REMOTE_DEBUGGING_PORT`, try the default `9222`. Keep the host port blank under **Network**. Save any changes and restart Chromium. |
-| **“Open Chromium Link from a Home Assistant dashboard button.”** | Tap the dashboard card with the **Navigate** action. In Chromium’s address bar, enter the device address itself, such as `http://wled.local/`. [Button card example](#add-your-first-button) |
-| **“This site can’t be reached” in Chromium** | If `http://wled.local/` fails to resolve, try the WLED controller’s local IP address. For example, use `http://192.168.1.50/` if that’s the controller’s IP. Use the working address in your dashboard button. |
+| **The dashboard button stops on the Chromium Link page because remote debugging is off.** The page asks you to enable `CHROMIUM_REMOTE_DEBUGGING`. | In **Settings → Apps → Chromium → Configuration**, set `CHROMIUM_REMOTE_DEBUGGING` to `1` and save. Leave the `9222/tcp` host port blank under **Network**. Restart the Chromium app from **Info**, then retry the button. |
+| **The Chromium Link page itself fails to load.** Home Assistant shows an “Unable to load custom panel” popup. | Refresh Home Assistant in your browser and retry the button. If the popup returns, check that Chromium Link is listed under **Settings → Devices & services** and follow any Marketplace restart prompt. |
+| **Home Assistant can’t find the Mincka Chromium app.** | Check **Settings → Apps** for Mincka’s Chromium. Use the Mincka repository URL in the setup guide if you need to install it. [Chromium app requirements](#what-you-need) |
+| **The Chromium app is installed and its browser panel is unavailable.** The launcher asks you to start Chromium. | Open **Settings → Apps → Chromium → Info**. Start Chromium if it’s stopped, then select **Open Web UI** to check that its browser loads before retrying the dashboard button. |
+| **Chromium Link can’t confirm that Chromium opened the tab.** | Open Chromium from the sidebar first. If the browser loads, check its debugging settings. Restart the Chromium app after changing them. If the launcher reports an invalid internal port, set `CHROMIUM_REMOTE_DEBUGGING_PORT` to `9222`, save, and restart Chromium. |
+| **Opening the launcher URL directly leaves you on the Chromium Link page.** | Use a card with the **Navigate** action and tap it from your dashboard. When testing the device in Chromium’s address bar, enter `http://wled.local/`. [Button card example](#add-your-first-button) |
+| **The launcher reports a missing or invalid device address.** | Check that the card’s navigation path includes one full `http://` or `https://` address after `?url=`. For WLED, use `/chromium-launch?url=http://wled.local/`. [Button card example](#add-your-first-button) |
+| **Chromium opens a tab and shows “This site can’t be reached.”** | Try the same device address in Chromium’s address bar. If `wled.local` fails to resolve, try the controller’s actual local IP address, such as `http://192.168.1.50/`. Use the working address in the dashboard button. If both fail, check that WLED is online and reachable from your Home Assistant host. |
 
 ## Security and support
 
