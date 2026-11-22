@@ -1,7 +1,7 @@
 <div align="center">
   <img src="custom_components/chromium_link/brand/icon.png" width="88" height="88" alt="Chromium Link icon">
   <h1>Chromium Link</h1>
-  <p><strong>Open your home devices’ web pages from Home Assistant while you’re away.</strong></p>
+  <p><strong>Open local device web pages from your Home Assistant dashboard while you’re away.</strong></p>
   <p>
     <a href="#what-you-need"><img src="https://img.shields.io/badge/Home%20Assistant%20OS-2026.11%2B-18BCF2?logo=homeassistant&amp;logoColor=white" alt="Home Assistant OS 2026.11 or later"></a>
     <a href="#installation"><img src="https://img.shields.io/badge/Status-Early%20preview-D28C18" alt="Project status: early preview"></a>
@@ -10,9 +10,11 @@
   </p>
 </div>
 
-If you already use Home Assistant Cloud, you can reuse that connection for device pages. You can skip the VPN client and keep the device web interfaces on your home network. Each shortcut is a standard dashboard button with the device’s usual URL.
+Home Assistant Cloud gets you to your dashboard while you’re away. A regular dashboard link to a local address like `http://wled.local/` still asks your phone or laptop to connect directly to the device. The page won’t load if your phone or laptop can’t reach your local network.
 
-Tap the button to open a device page in the **Mincka Chromium add-on on your Home Assistant host**. Home Assistant then shows the Chromium tab. Use it to open WLED settings, check an ESPHome sensor’s web page, or reach a router, NAS, or printer interface. [Mincka Chromium add-on documentation](https://github.com/Mincka/ha-addons/tree/main/chromium)
+Chromium Link opens the device page in Chromium running on your Home Assistant host and shows it through the remote connection you already use. Each shortcut is a standard dashboard button with the device’s usual URL. You can skip the VPN client and keep device web interfaces on your local network.
+
+**[View the required Mincka Chromium add-on](https://github.com/Mincka/ha-addons/tree/main/chromium)**
 
 ## Contents
 
@@ -32,7 +34,7 @@ Tap the button to open a device page in the **Mincka Chromium add-on on your Hom
 | Approach | When it fits | What it takes |
 | --- | --- | --- |
 | **Chromium Link** | Open a device web page in one tap from your dashboard. | Set up the Chromium add-on and add a button for each device you want to open. |
-| **VPN with access to your home network** | Open devices directly in your own browser, or use other services such as SSH and file sharing. | Set up a VPN gateway or subnet router and connect each phone or computer that needs access. [Tailscale subnet routing example](https://tailscale.com/docs/use-cases/personal-or-at-home-use/access-devices-without-tailscale) |
+| **VPN with access to your local network** | Open devices directly in your own browser, or use other services such as SSH and file sharing. | Set up a VPN gateway or subnet router and connect each phone or computer that needs access. [Tailscale subnet routing example](https://tailscale.com/docs/use-cases/personal-or-at-home-use/access-devices-without-tailscale) |
 | **Reverse proxy** | Give a service its own remote web address. | Configure the proxy for each service you want to publish and manage who can reach it. [Caddy reverse proxy example](https://caddyserver.com/docs/quick-starts/reverse-proxy) |
 | **Chromium add-on on its own** | Open the occasional page from Chromium’s address bar or bookmarks. | Open Chromium in Home Assistant and choose or enter the device address. |
 
@@ -101,7 +103,7 @@ Open your Home Assistant dashboard and tap your device’s **via Home Assistant*
 | Button | What opens | When to use it |
 | --- | --- | --- |
 | **Open via Home Assistant** | The Chromium add-on on your Home Assistant host | At home or away through your Home Assistant connection |
-| **Open directly** | The browser you’re using right now | On your home network or a VPN that can reach the device |
+| **Open directly** | The browser you’re using right now | On your local network or a VPN that can reach the device |
 
 ## How it works
 
