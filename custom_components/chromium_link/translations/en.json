@@ -2,6 +2,12 @@
   "config": {
     "abort": {
       "already_configured": "Chromium Link is already set up."
+    },
+    "step": {
+      "user": {
+        "title": "Set up Chromium Link",
+        "description": "Add Chromium Link to open local web pages in the Mincka Chromium app from your dashboard. Device addresses go in your dashboard buttons."
+      }
     }
   }
 }

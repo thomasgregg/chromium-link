@@ -12,4 +12,6 @@ class ChromiumLinkConfigFlow(ConfigFlow, domain="chromium_link"):
         """Create the integration entry."""
         await self.async_set_unique_id("chromium_link")
         self._abort_if_unique_id_configured()
+        if user_input is None:
+            return self.async_show_form(step_id="user")
         return self.async_create_entry(title="Chromium Link", data={})

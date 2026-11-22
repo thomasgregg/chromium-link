@@ -14,12 +14,14 @@ from homeassistant.components.hassio import get_supervisor_client
 from homeassistant.components.http import StaticPathConfig
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.typing import ConfigType
 
 from .protocol import new_tab_path
 
 DOMAIN = "chromium_link"
+CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
 PANEL_PATH = "chromium-launch"
 MODULE_URL = "/api/chromium_link/panel.js"
 # Supervisor derives this ID from the published Mincka repository and app slug.
