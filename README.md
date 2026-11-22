@@ -15,7 +15,7 @@ Chromium Link opens the device page in [Chromium](https://github.com/Mincka/ha-a
 
 ## Contents
 
-- [When to use each option](#when-to-use-each-option)
+- [Remote access options](#remote-access-options)
 - [What you need](#what-you-need)
 - [Installation](#installation)
   - [Configure the Chromium add-on](#1-configure-the-chromium-add-on)
@@ -25,7 +25,7 @@ Chromium Link opens the device page in [Chromium](https://github.com/Mincka/ha-a
 - [Troubleshooting](#troubleshooting)
 - [Security and support](#security-and-support)
 
-## When to use each option
+## Remote access options
 
 | Approach | When it fits | What it takes |
 | --- | --- | --- |
