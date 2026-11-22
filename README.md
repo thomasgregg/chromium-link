@@ -10,9 +10,9 @@
   </p>
 </div>
 
-Remote access gets you to your Home Assistant dashboard while you’re away. A regular dashboard link to `http://wled.local/` sends your phone or laptop directly to WLED, which requires a route to your home network.
+If you already use Home Assistant Cloud, you can reuse that connection for device pages. You can skip the VPN client and keep the device web interfaces on your home network. Each shortcut is a standard dashboard button with the device’s usual URL.
 
-Chromium Link opens the page in the **Mincka Chromium add-on running on your Home Assistant host** and shows the browser through the Home Assistant connection you already use. Tap a button on your dashboard to open WLED settings, check an ESPHome sensor’s web page, or reach a router, NAS, or printer interface. [Mincka Chromium add-on documentation](https://github.com/Mincka/ha-addons/tree/main/chromium)
+Tap the button to open a device page in the **Mincka Chromium add-on on your Home Assistant host**. Home Assistant then shows the Chromium tab. Use it to open WLED settings, check an ESPHome sensor’s web page, or reach a router, NAS, or printer interface. [Mincka Chromium add-on documentation](https://github.com/Mincka/ha-addons/tree/main/chromium)
 
 ## Contents
 
@@ -22,15 +22,12 @@ Chromium Link opens the page in the **Mincka Chromium add-on running on your Hom
   - [Configure the Chromium add-on](#1-configure-the-chromium-add-on)
   - [Install Chromium Link](#2-install-chromium-link)
 - [Add your first button](#add-your-first-button)
-  - [Full dashboard example](#full-dashboard-example)
 - [Use it away from home](#use-it-away-from-home)
 - [How it works](#how-it-works)
 - [Troubleshooting](#troubleshooting)
 - [Security and support](#security-and-support)
 
 ## Why Chromium Link
-
-If you already use Home Assistant Cloud, you can reuse that connection for device pages. You can skip the VPN client and keep the device web interfaces on your home network. Each shortcut is a standard dashboard button with the device’s usual URL.
 
 | Approach | When it fits | What it takes |
 | --- | --- | --- |
@@ -95,38 +92,6 @@ For more devices, duplicate the button and change its name and address. Paste th
 
 ```text
 /chromium-launch?url=http://device.local/settings?tab=wifi&mode=advanced#status
-```
-
-### Full dashboard example
-
-Use this YAML in a new dashboard’s **Raw configuration editor**. It shows two devices that open through the Chromium add-on, plus a WLED button that opens directly in the browser you’re using. To add this view to an existing dashboard, copy the `Home network` view into its `views:` list.
-
-```yaml
-views:
-  - title: Home network
-    path: home-network
-    type: masonry
-    cards:
-      - type: button
-        name: WLED settings via Home Assistant
-        icon: mdi:led-strip-variant
-        tap_action:
-          action: navigate
-          navigation_path: "/chromium-launch?url=http://wled.local/settings"
-
-      - type: button
-        name: ESPHome sensor via Home Assistant
-        icon: mdi:chip
-        tap_action:
-          action: navigate
-          navigation_path: "/chromium-launch?url=http://esp-sensor.local/"
-
-      - type: button
-        name: WLED settings directly
-        icon: mdi:open-in-new
-        tap_action:
-          action: url
-          url_path: "http://wled.local/settings"
 ```
 
 ## Use it away from home
