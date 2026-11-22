@@ -48,7 +48,7 @@ Chromium Link opens the device page in [Chromium](https://github.com/Mincka/ha-a
 
 Open **Settings → Apps → Chromium → Configuration**. Set `CHROMIUM_REMOTE_DEBUGGING` to `"1"` and save. In **Network**, leave the `9222/tcp` host port blank. Restart Chromium. In its **Info** tab, enable **Show in sidebar** and **Start on boot**.
 
-Before continuing, open **Chromium** from the sidebar and enter one of your device URLs in its address bar. This confirms that the add-on can reach your device.
+Before continuing, open **Chromium** from the sidebar and enter a device address, such as `http://wled.local/`. This confirms that the add-on can reach your device.
 
 ### 2. Install Chromium Link
 
@@ -73,21 +73,21 @@ Follow the setup prompt, or open **Settings → Devices & services → Add integ
 
 ## Add your first button
 
-Edit a dashboard and add a standard **Button** card. Choose **Navigate** as the tap action and enter the `navigation_path` shown below. Or open **Show code editor** on the card and paste the full YAML. Replace `http://esp-sensor.local/` with your device’s address.
+Edit a dashboard and add a standard **Button** card. Choose **Navigate** as the tap action and enter the `navigation_path` shown below. Or open **Show code editor** on the card and paste the full YAML. Replace `http://wled.local/` with your device’s address.
 
 ```yaml
 type: button
-name: Open ESPHome sensor via HA
+name: Open WLED via HA
 icon: mdi:open-in-new
 tap_action:
   action: navigate
-  navigation_path: "/chromium-launch?url=http://esp-sensor.local/"
+  navigation_path: "/chromium-launch?url=http://wled.local/"
 ```
 
 For more devices, duplicate the button and change its name and address. Paste the full device address after `/chromium-launch?url=` exactly as you copied it from the browser, including any page options or `#` section.
 
 ```text
-/chromium-launch?url=http://device.local/settings?tab=wifi&mode=advanced#status
+/chromium-launch?url=http://wled.local/settings?tab=wifi&mode=advanced#status
 ```
 
 ## How it works
@@ -110,8 +110,8 @@ Chromium Link asks the add-on on your Home Assistant host to open the device add
 | **“Home Assistant could not find the Mincka Chromium app.”** | Install **Chromium** from `https://github.com/mincka/ha-addons` under **Settings → Apps**. [Chromium app requirements](#what-you-need) |
 | **“Start Chromium in Settings → Apps, then try again.”** | Select **Start** on the Chromium app’s **Info** tab. Check that Chromium opens from the sidebar, then retry the button. |
 | **“Chromium did not confirm that it opened the tab. Check its internal DevTools connection.”** | Check that debugging is enabled. If you changed `CHROMIUM_REMOTE_DEBUGGING_PORT`, try the default `9222`. Keep the host port blank under **Network**. Save any changes and restart Chromium. |
-| **“Open Chromium Link from a Home Assistant dashboard button.”** | Tap the dashboard card with the **Navigate** action. In Chromium’s address bar, enter the device address itself, such as `http://esp-sensor.local/`. [Button card example](#add-your-first-button) |
-| **“This site can’t be reached” in Chromium** | If `http://esp-sensor.local/` fails to resolve, try the sensor’s local IP address in Chromium, such as `http://192.168.1.50/`. Use the working address in your dashboard button. |
+| **“Open Chromium Link from a Home Assistant dashboard button.”** | Tap the dashboard card with the **Navigate** action. In Chromium’s address bar, enter the device address itself, such as `http://wled.local/`. [Button card example](#add-your-first-button) |
+| **“This site can’t be reached” in Chromium** | If `http://wled.local/` fails to resolve, try the WLED controller’s local IP address. For example, use `http://192.168.1.50/` if that’s the controller’s IP. Use the working address in your dashboard button. |
 
 ## Security and support
 
