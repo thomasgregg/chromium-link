@@ -1,36 +1,71 @@
 <div align="center">
   <img src="custom_components/chromium_link/brand/icon.png" width="88" height="88" alt="Chromium Link icon">
   <h1>Chromium Link</h1>
-  <p><strong>Open the web pages on your home network from the Home Assistant dashboard you already use.</strong></p>
+  <p><strong>Open your home devices’ web pages from Home Assistant while you’re away.</strong></p>
   <p>
-    <a href="https://my.home-assistant.io/redirect/marketplace_repository/?owner=thomasgregg&amp;repository=chromium-link&amp;category=integration"><img src="https://my.home-assistant.io/badges/marketplace_repository.svg" alt="Open Chromium Link in Home Assistant Marketplace"></a>
+    <a href="#what-you-need"><img src="https://img.shields.io/badge/Home%20Assistant%20OS-2026.11%2B-18BCF2?logo=homeassistant&amp;logoColor=white" alt="Home Assistant OS 2026.11 or later"></a>
+    <a href="#installation"><img src="https://img.shields.io/badge/Status-Early%20preview-D28C18" alt="Project status: early preview"></a>
+    <a href="https://github.com/thomasgregg/chromium-link/actions/workflows/validate.yml"><img src="https://github.com/thomasgregg/chromium-link/actions/workflows/validate.yml/badge.svg?branch=main" alt="GitHub validation status"></a>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-2EA44F" alt="MIT license"></a>
   </p>
-  <p><a href="#install">Install</a> · <a href="#add-your-first-button">Add a button</a> · <a href="#troubleshooting">Troubleshooting</a></p>
 </div>
 
-Imagine checking an ESPHome sensor on your Home Assistant dashboard while away from home. You spot something to investigate, so you tap **Open sensor web UI**. Chromium running at home opens the sensor’s page, and Home Assistant brings that browser into view.
+Remote access gets you to your Home Assistant dashboard while you’re away. A regular dashboard link to `http://wled.local/` sends your phone or laptop directly to WLED, which requires a route to your home network.
 
-Use it for **ESPHome web pages**, **WLED controllers**, **router settings**, **NAS consoles**, and **printer interfaces**. Anything with an HTTP or HTTPS page that Chromium can reach from your home network is a candidate. Each standard dashboard button carries its own device address.
+Chromium Link opens the page in the **Mincka Chromium add-on running on your Home Assistant host** and shows the browser through the Home Assistant connection you already use. Tap a button on your dashboard to open WLED settings, check an ESPHome sensor’s web page, or reach a router, NAS, or printer interface. [Mincka Chromium add-on documentation](https://github.com/Mincka/ha-addons/tree/main/chromium)
 
-> **Early preview.** The launcher and its URL handling have been exercised against local Chromium. A full Home Assistant OS and Nabu Casa smoke test is on the [release checklist](docs/marketplace.md#before-publishing). Install it from the Marketplace as a custom repository or try the manual installation below.
+## Contents
+
+- [Why Chromium Link](#why-chromium-link)
+- [What you need](#what-you-need)
+- [Installation](#installation)
+  - [Configure the Chromium add-on](#1-configure-the-chromium-add-on)
+  - [Install Chromium Link](#2-install-chromium-link)
+- [Add your first button](#add-your-first-button)
+  - [Full dashboard example](#full-dashboard-example)
+- [Use it away from home](#use-it-away-from-home)
+- [How it works](#how-it-works)
+- [Troubleshooting](#troubleshooting)
+- [Security and support](#security-and-support)
+
+## Why Chromium Link
+
+If you already use Home Assistant Cloud, you can reuse that connection for device pages. You can skip the VPN client and keep the device web interfaces on your home network. Each shortcut is a standard dashboard button with the device’s usual URL.
+
+| Approach | When it fits | What it takes |
+| --- | --- | --- |
+| **Chromium Link** | Open a device web page in one tap from your dashboard. | Set up the Chromium add-on and add a button for each device you want to open. |
+| **VPN with access to your home network** | Open devices directly in your own browser, or use other services such as SSH and file sharing. | Set up a VPN gateway or subnet router and connect each phone or computer that needs access. [Tailscale subnet routing example](https://tailscale.com/docs/use-cases/personal-or-at-home-use/access-devices-without-tailscale) |
+| **Reverse proxy** | Give a service its own remote web address. | Configure the proxy for each service you want to publish and manage who can reach it. [Caddy reverse proxy example](https://caddyserver.com/docs/quick-starts/reverse-proxy) |
+| **Chromium add-on on its own** | Open the occasional page from Chromium’s address bar or bookmarks. | Open Chromium in Home Assistant and choose or enter the device address. |
 
 ## What you need
 
 - Home Assistant OS with **Home Assistant 2026.11 or later** and an administrator account.
-- The [Mincka Chromium app](https://github.com/Mincka/ha-addons/tree/main/chromium), version **1.7.0 or later**, installed and running. To add it, open **Settings → Apps → Install app → ⋮ → Repositories** and add `https://github.com/mincka/ha-addons`, then install **Chromium**.
-- A way to reach your Home Assistant dashboard remotely, such as Home Assistant Cloud by Nabu Casa, if you want to use the links away from home.
+- **Mincka Chromium 1.7.0 or later**, installed and running on your Home Assistant host. To add it, open **Settings → Apps → Install app → ⋮ → Repositories** and add `https://github.com/mincka/ha-addons`, then install **Chromium**. [Mincka Chromium add-on](https://github.com/Mincka/ha-addons/tree/main/chromium)
+- For use away from home, remote access to your Home Assistant dashboard, such as Home Assistant Cloud by Nabu Casa. [Home Assistant remote access guide](https://www.home-assistant.io/docs/configuration/remote/)
 
-## Install
+<a name="install"></a>
 
-### 1. Enable Chromium’s internal control connection
+## Installation
+
+> **Early preview.** The launcher has been tested in Chromium. The full Home Assistant OS and Nabu Casa test is tracked in the [release checklist](docs/marketplace.md#before-publishing).
+
+### 1. Configure the Chromium add-on
 
 Open **Settings → Apps → Chromium → Configuration**. Set `CHROMIUM_REMOTE_DEBUGGING` to `"1"` and save. In **Network**, leave the `9222/tcp` host port blank. Restart Chromium. In its **Info** tab, enable **Show in sidebar** and **Start on boot**.
 
-Before continuing, open **Chromium** from the sidebar and enter one of your device URLs in its address bar. This confirms the browser at home can reach it.
+Before continuing, open **Chromium** from the sidebar and enter one of your device URLs in its address bar. This confirms that the add-on can reach your device.
 
-### 2. Add the integration
+### 2. Install Chromium Link
 
-Use the Marketplace button above, or open **Settings → Marketplace → Add from link**. Paste `https://github.com/thomasgregg/chromium-link` and select **Add**. Connect GitHub if prompted. Then open **Chromium Link** in the Marketplace and select **Install**.
+<!-- ha-marketplace:exclude-start -->
+
+[![Open Chromium Link in Home Assistant Marketplace](https://my.home-assistant.io/badges/marketplace_repository.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=thomasgregg&repository=chromium-link&category=integration)
+
+The button opens Chromium Link in the Marketplace as a custom repository. You can also open **Settings → Marketplace → Add from link**, paste `https://github.com/thomasgregg/chromium-link`, and select **Add**. Connect GitHub if prompted. Then open **Chromium Link** in the Marketplace and select **Install**.
+
+<!-- ha-marketplace:exclude-end -->
 
 Follow the setup prompt, or open **Settings → Devices & services → Add integration → Chromium Link**. The setup has no fields. Follow any restart prompt shown by Home Assistant.
 
@@ -45,14 +80,7 @@ Follow the setup prompt, or open **Settings → Devices & services → Add integ
 
 ## Add your first button
 
-Edit an existing dashboard and add a **Button** card. Name it after your device. In its tap action, choose **Navigate** and paste the navigation path below, replacing `http://esp-sensor.local/` with the address you normally type into Chromium.
-
-```text
-/chromium-launch?url=http://esp-sensor.local/
-```
-
-<details>
-<summary>Copy the complete Button card YAML</summary>
+Edit a dashboard and add a standard **Button** card. Choose **Navigate** as the tap action and enter the `navigation_path` shown below. Or open **Show code editor** on the card and paste the full YAML. Replace `http://esp-sensor.local/` with your device’s address.
 
 ```yaml
 type: button
@@ -63,36 +91,64 @@ tap_action:
   navigation_path: "/chromium-launch?url=http://esp-sensor.local/"
 ```
 
-</details>
-
 For more devices, duplicate the button and change its name and address. Paste the full device address after `/chromium-launch?url=` exactly as you copied it from the browser, including any page options or `#` section.
 
 ```text
 /chromium-launch?url=http://device.local/settings?tab=wifi&mode=advanced#status
 ```
 
+### Full dashboard example
+
+Use this YAML in a new dashboard’s **Raw configuration editor**. It shows two devices that open through the Chromium add-on, plus a WLED button that opens directly in the browser you’re using. To add this view to an existing dashboard, copy the `Home network` view into its `views:` list.
+
+```yaml
+views:
+  - title: Home network
+    path: home-network
+    type: masonry
+    cards:
+      - type: button
+        name: WLED settings via Home Assistant
+        icon: mdi:led-strip-variant
+        tap_action:
+          action: navigate
+          navigation_path: "/chromium-launch?url=http://wled.local/settings"
+
+      - type: button
+        name: ESPHome sensor via Home Assistant
+        icon: mdi:chip
+        tap_action:
+          action: navigate
+          navigation_path: "/chromium-launch?url=http://esp-sensor.local/"
+
+      - type: button
+        name: WLED settings directly
+        icon: mdi:open-in-new
+        tap_action:
+          action: url
+          url_path: "http://wled.local/settings"
+```
+
 ## Use it away from home
 
-Open your usual HA dashboard and tap the button. Chromium opens the device in a new tab, then Home Assistant shows the existing Chromium panel. **Back** returns you to your dashboard.
+Open your Home Assistant dashboard and tap your device’s **via Home Assistant** button. The Chromium add-on opens the page in a new tab, then Home Assistant shows the Chromium panel. **Back** returns you to your dashboard.
 
 | Button | What opens | When to use it |
 | --- | --- | --- |
-| **Open via HA** | Chromium running on your Home Assistant host | At home or away through your HA remote connection |
+| **Open via Home Assistant** | The Chromium add-on on your Home Assistant host | At home or away through your Home Assistant connection |
 | **Open directly** | The browser you’re using right now | On your home network or a VPN that can reach the device |
-
-To add the second option, use another standard Button card with the **Open URL** tap action and paste the plain device address.
 
 ## How it works
 
 ```mermaid
 flowchart LR
     A[Dashboard button] --> B[Chromium Link]
-    B --> C[Chromium at home]
+    B --> C[Chromium add-on on your Home Assistant host]
     C --> D[Device web page]
     C --> E[Existing HA Chromium panel]
 ```
 
-The integration sends a tab-opening command to Chromium over Home Assistant’s internal network. Chromium connects to the device from home, and HA’s existing Ingress connection displays the browser. Device addresses live in dashboard buttons. Chromium uses its usual shared browser session for its tabs, history, and sign-ins.
+The integration sends a tab-opening command to the Chromium add-on over Home Assistant’s internal network. The add-on connects to the device from the Home Assistant host, and Home Assistant’s existing Ingress connection displays the browser. Chromium uses its usual shared browser session for its tabs, history, and sign-ins.
 
 ## Troubleshooting
 
