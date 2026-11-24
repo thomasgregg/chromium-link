@@ -1,6 +1,6 @@
 # Marketplace and releases
 
-Chromium Link uses the [Home Assistant Marketplace integration layout](https://contributors.home-assistant.io/marketplace/guides/integrations/). The runtime lives in `custom_components/chromium_link`, and `hacs.json` sets the minimum Home Assistant version. The README’s Marketplace link opens this project as a custom repository. A catalog listing is a separate review.
+Chromium Link uses the [Home Assistant Marketplace integration layout](https://contributors.home-assistant.io/marketplace/guides/integrations/). The runtime lives in `custom_components/chromium_link`, and `hacs.json` sets the minimum Home Assistant version. The integration is listed in the shared Marketplace and HACS catalog. The README covers catalog search and custom repository installation.
 
 ## Before publishing
 

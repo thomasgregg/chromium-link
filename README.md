@@ -45,9 +45,22 @@ Before continuing, open **Chromium** from the sidebar and enter a device address
 
 <!-- ha-marketplace:exclude-start -->
 
+Search for **Chromium Link** in the default catalog and open the result:
+
+- **Home Assistant Marketplace:** Open **Settings → Marketplace**, search for **Chromium Link**, and select **Install** on its page.
+- **HACS:** Open **HACS** from the sidebar, search for **Chromium Link**, and select **Download** on its page. Restart Home Assistant after downloading.
+
+<details>
+<summary>Custom repository installation</summary>
+
+If Chromium Link is missing from your catalog search, you can add `https://github.com/thomasgregg/chromium-link` directly.
+
+- **Home Assistant Marketplace:** Use the button below or open **Settings → Marketplace → Add from link**, paste the repository URL, and select **Add**. Connect GitHub if prompted. Open **Chromium Link** and select **Install**.
+- **HACS:** Open **HACS → ⋮ → Custom repositories**, paste the repository URL, select **Integration**, and select **Add**. Open **Chromium Link**, select **Download**, and restart Home Assistant.
+
 [![Open Chromium Link in Home Assistant Marketplace](https://my.home-assistant.io/badges/marketplace_repository.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=thomasgregg&repository=chromium-link&category=integration)
 
-The button opens Chromium Link in the Marketplace as a custom repository. You can also open **Settings → Marketplace → Add from link**, paste `https://github.com/thomasgregg/chromium-link`, and select **Add**. Connect GitHub if prompted. Then open **Chromium Link** in the Marketplace and select **Install**.
+</details>
 
 <!-- ha-marketplace:exclude-end -->
 
